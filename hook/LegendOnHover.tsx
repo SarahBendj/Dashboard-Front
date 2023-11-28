@@ -12,7 +12,7 @@ export function TooltipDemo({legend , children}:  ToolTipITC) {
     <TooltipProvider>
       <Tooltip>
       <TooltipTrigger asChild>
-          {children} 
+          {children}
         </TooltipTrigger>
 
         <TooltipContent>
