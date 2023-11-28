@@ -1,0 +1,75 @@
+.logo {
+  position: relative;
+  width: min-content;
+  height: 80px;
+  background: repeating-conic-gradient(
+    from var(--a),
+    rgb(14 116 144) 0%,
+    rgb(14 116 144)5%, transparent 5% , transparent 40% , rgb(14 116 144) 50%
+  
+  );
+ 
+  
+  animation: animate 3s linear infinite;
+  --a: 0; /* Default value for --a */
+}
+
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes animate {
+  0% {
+    --a: 0deg;
+  }
+  100% {
+    --a: 360deg;
+  }
+
+}
+  /* .logo::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-conic-gradient(
+      from var(--a),
+      #196f72 0%,
+      #196f72 5%, transparent 5%, transparent 40%, #196f72 50%
+    );
+    border-radius: inherit;
+    animation: inherit; /* Inherit the animation */
+    /*animation-delay: -0.8s;*/
+  
+
+  .logo::after {
+  content: '';
+  position: absolute;
+  width: 95%;
+  height: 95%;
+ 
+inset: 5px 0 0 3px;
+
+  background: rgb( 17, 24 ,39);
+  border: solid  rgb(3, 7 ,18) 3px;
+  border-radius: inherit;
+
+  }
+
+.counter {
+  position : absolute;
+  top : 0;
+  font-size: 1rem;
+  padding : 0.2rem  0.5rem;
+  right: 0;
+  z-index: 50;
+  transform: translate(50% , -50%);
+  background-color: rgba(8, 145, 178 , 0.8) ;
+
+  color : rgb(235, 237, 238);
+  border-radius: 50%;
+
+
+}
