@@ -13,6 +13,7 @@ const FridgePage: React.FC = () => {
   const [fridges, setFridges] = useState<FridgeITC[]>([]);
   const [fridgeControlled, setFridgeControlled] = useState<Fridge_controledITC[]>([]);
   const commonClasses = 'bg-inherit w-32 h-40 b-4 text-white border-none rounded-none mb-4 hover:shadow-md hover:shadow-cyan-600';
+  console.log(fridgeControlled)
 
 
   useEffect(() => {

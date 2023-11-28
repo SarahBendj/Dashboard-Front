@@ -44,10 +44,7 @@ export default function Fridge() {
    return (
     <div className='bg-gray-900 m-4 p-4 shadow-md shadow-cyan-700 max-w-content' >
       <h2 className="text-xl text-white py-2 border-b mb-4 ">FRIDGES</h2>
-      <div className="flex items-start overflow-x-auto w-1/3  ">
-      <div className='w-16 my-auto mx-5 text-white text-sm' >
-        <Create   dataName="Fridge" fields={["name", "temperature_required"]} display={false} createPath="fridges" />Add fridge
-        </div>
+      <div className="flex items-start overflow-x-auto h-64  ">
         {fridges.map((fridge) => (
           <div className='mx-3' key={fridge.id}   >
              <div className='w-full shadow-md shadow-cyan-700 '>

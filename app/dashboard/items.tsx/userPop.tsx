@@ -42,7 +42,7 @@ import { useEffect, useState } from 'react';
         router.push('/auth/login'); 
       };
     return (
-        <div className='pr-5 ' >
+        <div className='' >
         <NavigationMenu >
         <NavigationMenuList >
           <NavigationMenuItem>

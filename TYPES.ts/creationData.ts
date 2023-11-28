@@ -85,3 +85,18 @@ export interface WarningOnlyITC {
   fridge_controle_id: number;
   reception_controle_id: number | null;
 }
+
+export interface NotifyAlarmITC {
+  id : number
+  description : string
+  fridge_controle_id ?: number
+  fridgeid ?: number
+  reception_controle_id? : number
+  createdat : string
+
+}
+
+export interface ToolTipITC  {
+  legend: string;
+  children: React.ReactNode
+}

@@ -76,7 +76,7 @@ export default function ReceptionTable({ params }: { params: { id: string }} ) {
 </div>
 <div className="w-2/3 bg-gray-900 m-4 p-4  shadow-md shadow-cyan-700">
 <h2 className='text-xl text-white'>Last controls </h2>
-<div className="overflow-y-auto h-48">
+<div className="overflow-y-auto h-80">
 <Table className=""> 
     <TableCaption> Controls </TableCaption>
     <TableHeader>

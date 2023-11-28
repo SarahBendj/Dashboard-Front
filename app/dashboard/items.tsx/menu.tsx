@@ -6,14 +6,14 @@ import './logo.scss';
 
 export default function Menu() {
     const menuPathStyle: string = 
-    'w-full px-4 py-2 border-r border-transparent hover:bg-cyan-700 hover:w-full hover:bg-opacity-25 hover:border-r hover:border-cyan-500';
+    'w-full text-2xl px-4 py-2 border-r-4 border-transparent hover:bg-cyan-700 hover:w-full  hover:bg-opacity-25 hover:border-r-4 hover:border-cyan-500';
 
     return (
-        <div className='bg-gray-900 py-4 text-white flex flex-col h-screen  min-h-content  rounded-none  shadow-md shadow-cyan-700 '>
+        <div className='bg-gray-900 py-4 text-white flex flex-col h-screen  w-full min-h-content  rounded-none  shadow-md shadow-cyan-700 '>
            
-            <div className='mx-auto  '>
-                <div className="logo flex items-center justify-center text-2xl shadow-md shadow-cyan-700">
-                    <span className='z-10'>CUISTO</span>
+            <div className='w-full mx-auto py-4 '>
+                <div className=" flex items-center justify-center text-2xl shadow-md shadow-cyan-700">
+                    <span className='z-10 text-3xl  py-2'>CUISTO</span>
                 </div>
             </div>
             <div className='w-full'>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle, faExclamationTriangle, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { usePathname } from 'next/navigation'
 import Link from 'next/link';
 
 export default function CurrentState({ state }: { state: boolean[] }) {
@@ -8,11 +9,13 @@ export default function CurrentState({ state }: { state: boolean[] }) {
   const [perturbation, setPerturbation] = useState<number[]>([]);
   const [isStable, setIsStable] = useState<boolean | null>(null);
   const [isCritical, setIsCritical] = useState<boolean | null>(null);
+  const pathname = usePathname();
 
 
   useEffect(() => {
     const stabilityArray: number[] = [];
     const perturbationArray: number[] = [];
+  
 
     state.forEach((s, index) => {
       if (s) {
@@ -83,8 +86,8 @@ export default function CurrentState({ state }: { state: boolean[] }) {
         )}
       </div>
       <div className="mr-4">
-        {window.location.pathname !=='/dashboard/services/warning' && (
-    <Link href={'/services/warning'}  className='text-cyan-700 hover:text-white mr-4'> View <FontAwesomeIcon icon={faArrowRight} /></Link>
+        {pathname == '/dashboard' && (
+    <Link href={'/dashboard/services/warning'}  className='text-cyan-700 hover:text-white mr-4'> View <FontAwesomeIcon icon={faArrowRight} /></Link>
         )}
     </div>
     </div>

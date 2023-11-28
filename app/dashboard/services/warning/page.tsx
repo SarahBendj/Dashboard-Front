@@ -23,6 +23,8 @@ export default function ReceptionTable({
   const [warnings, setWarnings] = useState<WarningITC[]>([]);
   const [legendIsOpen, setLegendIsOpen] = useState<boolean>(false);
   const { auth } = useAuth();
+
+  console.log(warnings)
   
 
   useEffect(() => {
@@ -57,6 +59,7 @@ export default function ReceptionTable({
     <div className="h-screen">
 
       <div className="flex flex-col ">
+      {page === '1' && (
         <div className="flex justify-between bg-gray-900 m-4 p-4 ">
           <div className="bg-gray-900 m-4 p-4 shadow-md shadow-cyan-700 max-h-content w-3/4">
 
@@ -76,14 +79,15 @@ export default function ReceptionTable({
           </div>
 
           <div className="w-3/4 ">
-            {page === '1' && (
+            
 
 
               <WarningStats />
 
-            )}
+          
           </div>
         </div>
+        )}
 
 
         <div className="bg-gray-900 m-4 p-4 w-full shadow-md shadow-cyan-700 ">
@@ -117,8 +121,8 @@ export default function ReceptionTable({
                       className={`scale-150 ${warning.warning_status ? 'text-yellow-700' : 'text-cyan-500'}`}
                     />
                   </TableCell>
-                  <TableCell> {warning.receptionDesc ? warning.receptionDesc : warning.description} </TableCell>
-                  <TableCell> need to fill </TableCell>
+                  <TableCell> {warning.warning_status ? warning.description : 'FIXED'} </TableCell>
+                  <TableCell> {warning.warning_status ? 'UNFIXED YET': warning.description} </TableCell>
                   <TableCell>{parseAndFormatDate(warning.createdat)}</TableCell>
                   <TableCell> <Details data={warning} /></TableCell>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell,faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -9,7 +9,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { WarningOnlyITC } from '@/TYPES.ts/creationData';
+import { NotifyAlarmITC} from '@/TYPES.ts/creationData';
 import { useAuth } from '@/context/useAuth';
 import { useEffect, useState } from 'react';
 import { FETCH_REQUEST } from '@/lib/fetching';
@@ -18,16 +18,18 @@ import Link from 'next/link';
 
 export default function WarningTable() {
   const { auth } = useAuth();
-  const [warning, setWarning] = useState<WarningOnlyITC[]>([]);
-  const [warningWithinOneDay, setWarningWithinOneDay] = useState<WarningOnlyITC[]>([]);
-  const [ counter , setCounter ] = useState<number>(0);
+  const [warning, setWarning] = useState<NotifyAlarmITC[]>([]);
+  const [warningWithinOneDay, setWarningWithinOneDay] = useState<NotifyAlarmITC[]>([]);
+  const [counter, setCounter] = useState<number>(0);
+
+  console.log(warning)
 
   useEffect(() => {
     let isMounted = true;
 
     const fetchData = async () => {
       try {
-        const data: WarningOnlyITC[] = await FETCH_REQUEST('warnings', 'GET', auth.token);
+        const data: NotifyAlarmITC[] = await FETCH_REQUEST('warnings/notifyalarms', 'GET', auth.token);
 
         if (isMounted) {
           setWarning(data);
@@ -40,7 +42,7 @@ export default function WarningTable() {
     fetchData();
 
     return () => {
-     
+
       isMounted = false;
     };
   }, [auth.token]);
@@ -50,7 +52,7 @@ export default function WarningTable() {
       const twentyFourHoursAgo = new Date();
       twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
 
-      const filteredWarnings: WarningOnlyITC[] = warning
+      const filteredWarnings: NotifyAlarmITC[] = warning
         .filter((warn) => {
           const warningDate = new Date(warn.createdat);
           return warningDate >= twentyFourHoursAgo && warningDate <= new Date();
@@ -63,7 +65,7 @@ export default function WarningTable() {
 
     alert();
   }, [warning]);
-  
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -72,18 +74,23 @@ export default function WarningTable() {
             <FontAwesomeIcon icon={faBell} />
             <div className='counter'> {counter}</div>
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="min-w-content rounded-none"> 
-          <div className="border-b border-gray-200 mx-auto pl-4 pb-2 text-lg font-bold"> Recent alarms</div> 
-           {warningWithinOneDay.map((warn) => (
+          <NavigationMenuContent className="min-w-32 px-5 py-1 rounded-none">
+            <div className="border-b border-gray-200 mx-auto pl-4 pb-2 text-lg font-bold"> Daily alarms</div>
+            {warningWithinOneDay.map((warn) => (
               <div key={warn.id} className="w-80 text-sm p-auto p-4 font-bold border-b border-gray-100 hover:shadow-sm hover:shadow-cyan-700 ">
-                <Link href={'dashboard/services/fridge/${}'}  className='text-cyan-700 hover:text-black mr-0'> 
-                 {warn.fridge_controle_id ? 'Issue concern Fridge section ' :'Issue concern Reception section' }
-                <span>REF :{warn.fridge_controle_id ?? warn.reception_controle_id}  </span>   <FontAwesomeIcon icon={faArrowRight} /></Link></div>
+
+                <Link href={
+                  warn.fridge_controle_id
+                    ? `/dashboard/services/fridge/${warn.fridgeid}`
+                    : '/dashboard/services/receptions'
+                } className='text-cyan-700 hover:text-black mr-0'>
+                  {warn.fridge_controle_id ? 'Issue concern Fridge section ' : 'Issue concern Reception section'}
+                  <span>REF :{warn.fridge_controle_id ?? warn.reception_controle_id}  </span>   <FontAwesomeIcon icon={faArrowRight} /></Link></div>
             ))}
-          
- 
+
+
             <div className="w-full text-l">
-             
+
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
