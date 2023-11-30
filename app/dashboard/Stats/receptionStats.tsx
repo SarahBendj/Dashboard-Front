@@ -1,11 +1,13 @@
-import Chart from 'chart.js/auto';
+'use client '
+import Chart, { ChartConfiguration } from 'chart.js/auto';
 import React, { useEffect, useRef, useState} from 'react';
+
 
 
 const ReceptionStats = ({ status }: { status: boolean[] }) => {
     const [stability, setStability] = useState<number[]>([]);
     const [perturbation, setPerturbation] = useState<number[]>([]);
-    console.log(status)
+
   
     useEffect(() => {
       const stabilityArray: number[] = [];
@@ -24,7 +26,7 @@ const ReceptionStats = ({ status }: { status: boolean[] }) => {
     }, [status]);
   
     const chartRef = useRef<HTMLCanvasElement | null>(null);
-    const chartInstanceRef = useRef<Chart | null>(null);
+    const chartInstanceRef = useRef<Chart<"doughnut"> | null>(null);
   
     useEffect(() => {
       if (chartRef.current) {
@@ -48,15 +50,13 @@ const ReceptionStats = ({ status }: { status: boolean[] }) => {
           ],
         };
         
-  
-        if (ctx) {
-          chartInstanceRef.current = new Chart(ctx, {
-            type: 'doughnut',
-            data: data,
-            
-          });
-        }
+        chartInstanceRef.current = new Chart(ctx as CanvasRenderingContext2D, {
+          type: 'doughnut',
+          data: data,
+        } as ChartConfiguration<'doughnut'>); 
+    
       }
+      
     }, [stability, perturbation]);
   
     return <canvas ref={chartRef} />;

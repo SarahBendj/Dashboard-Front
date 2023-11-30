@@ -13,6 +13,7 @@ import { NotifyAlarmITC} from '@/TYPES.ts/creationData';
 import { useAuth } from '@/context/useAuth';
 import { useEffect, useState } from 'react';
 import { FETCH_REQUEST } from '@/lib/fetching';
+import { TooltipDemo } from '@/hook/LegendOnHover';
 import Link from 'next/link';
 
 
@@ -70,10 +71,12 @@ export default function WarningTable() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
+          <TooltipDemo legend='This section alerts you to warnings that have occurred in the past 24 hours.' >
           <NavigationMenuTrigger className="relative rounded-none p-4 bg-gray-900 shadow-md shadow-cyan-700 font-bold text-l text-white w-full">
             <FontAwesomeIcon icon={faBell} />
             <div className='counter'> {counter}</div>
           </NavigationMenuTrigger>
+          </TooltipDemo>
           <NavigationMenuContent className="min-w-32 px-5 py-1 rounded-none">
             <div className="border-b border-gray-200 mx-auto pl-4 pb-2 text-lg font-bold"> Daily alarms</div>
             {warningWithinOneDay.map((warn) => (

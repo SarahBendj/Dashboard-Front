@@ -14,7 +14,7 @@ import { ReceptionITC, WarningITC } from '@/TYPES.ts/creationData';
 import UserPop from './items.tsx/userPop';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import {TooltipDemo} from '@/hook/LegendOnHover';
+import { TooltipDemo } from '@/hook/LegendOnHover';
 
 export default function Dashboard() {
   const [receptions, setReceptions] = useState<ReceptionITC[]>([]);
@@ -43,11 +43,13 @@ export default function Dashboard() {
         <div className="bg-gray-900 mx-2  px-4 shadow-md shadow-cyan-700 w-full flex flex-row justify-between items-center ">
           <div className='text-2xl text-white m-4 w-full'>
             <div className='flex '>
-              <h1 className='mr-4'>DASHBOARD</h1>
-              <TooltipDemo legend={'this allow to warn you about the thatd occued withung 24hours '}>
-              < DisplayAlert />
+              <TooltipDemo legend={'This dashboard provides you with an overview of the status of your business.'}>
+                <h1 className='mr-4'>DASHBOARD</h1>
               </TooltipDemo>
-              
+              <TooltipDemo legend={'this allow to warn you about the thatd occued withung 24hours '}>
+                < DisplayAlert />
+              </TooltipDemo>
+
             </div>
           </div>
 
@@ -58,9 +60,9 @@ export default function Dashboard() {
         <div className=''>
           <div className="flex flex-row w-full ">
             <div className="bg-gray-900 m-4 p-4 shadow-md shadow-cyan-700 w-2/5 min-h-full">
-            <TooltipDemo legend={'this allow to warn you about the thatd occued withung 24hours '}>
+
               <CurrentState state={warnings.map((warn) => warn.warning_status)} />
-              </TooltipDemo>
+
             </div>
             <div className="w-full min-h-full">
               <ReceptionTable />
@@ -78,14 +80,22 @@ export default function Dashboard() {
             <div className='flex flex-row w-full '>
 
               <div className="bg-gray-900 m-4 px-4 shadow-md shadow-cyan-700  ">
-                <h1 className='text-xl text-white py-2 border-b mb-4'>RECEPTION STABILITY</h1>
+
+                <TooltipDemo
+                  legend={"This diagram focuses on your incoming deliveries. You can observe the stability versus potential disturbances that may arise from not adhering to standards."}>
+              < h1 className='text-xl text-white py-2 border-b mb-4'>RECEPTION STABILITY</h1>
+               </TooltipDemo>
                 <ReceptionStats status={receptions.map((rep) => rep.warning_status ?? false)} />
                 <Link href={'dashboard/services/receptions'} className='text-cyan-700 hover:text-white mr-4'> View <FontAwesomeIcon icon={faArrowRight} /></Link>
               </div>
 
-               <div className="bg-gray-900 m-4 px-4 shadow-md shadow-cyan-700  ">
-                <h1 className='text-xl text-white py-2 border-b mb-4 '>WARN STATE</h1>
+              <div className="bg-gray-900 m-4 px-4 shadow-md shadow-cyan-700  ">
+
+                <TooltipDemo legend={'This diagram illustrates all the issues that have occurred, allowing you to also observe those that have been resolved.'}>
+                  <h1 className='text-xl text-white py-2 border-b mb-4 '>WARN STATE</h1>
+                </TooltipDemo>
                 <WarningState />
+
                 <Link href={'dashboard/services/receptions'} className='text-cyan-700 hover:text-white mr-4'> View <FontAwesomeIcon icon={faArrowRight} /></Link>
               </div>
 

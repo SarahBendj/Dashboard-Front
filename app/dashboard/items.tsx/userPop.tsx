@@ -38,8 +38,8 @@ import { useEffect, useState } from 'react';
     const router = useRouter();
     
     const handleLogout = () => {
-         logout();
-        router.push('/auth/login'); 
+        
+        router.push('/auth/login');
       };
     return (
         <div className='' >

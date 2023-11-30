@@ -1,7 +1,8 @@
 import React, { useEffect, useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle, faExclamationTriangle, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation';
+import { TooltipDemo } from './LegendOnHover';
 import Link from 'next/link';
 
 export default function CurrentState({ state }: { state: boolean[] }) {
@@ -43,7 +44,9 @@ export default function CurrentState({ state }: { state: boolean[] }) {
   return (
     <div className='flex flex-col'>
       <div className="flex justify-between items-align border-b border-cyan-700">
+        <TooltipDemo legend={'This part shares the global status base on data collected over time, please pay good attention to it'} >
       <h1 className='text-white text-lg pb-4 '>CURRENT STATE</h1>
+      </TooltipDemo>
       <FontAwesomeIcon
         icon={isStable && !isCritical ? faCheckCircle : isStable && isCritical ? faExclamationTriangle :  faTimesCircle }
         

@@ -14,13 +14,13 @@ import { useAuth } from "@/context/useAuth"
 import { FETCH_REQUEST } from "@/lib/fetching"
 import { FormEvent, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
-import useNotification from "@/hook/useNotification"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 
-export default function YourComponent({ dataName ,fields ,createPath , display = true , preFilledData , checkboxes , selectData }:
-   { dataName : string ,fields: (string| number)[] ,createPath:string , display? :boolean ,preFilledData? :any ,checkboxes ? : string[] , selectData? : string}) {
+
+export default function YourComponent({ dataName ,fields ,createPath , display = true , preFilledData , checkboxes ,radio  }:
+   { dataName : string ,fields: (string| number)[] ,createPath:string , display? :boolean ,preFilledData? :any ,checkboxes ? : string[] , radio?: string | string [] }) {
   const [formData, setFormData] = useState({...preFilledData});
-  const { showError, showSucess } = useNotification();
   const { auth } = useAuth();
   
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
@@ -31,15 +31,15 @@ export default function YourComponent({ dataName ,fields ,createPath , display =
 
     });
   };
-
+ console.log(formData)
   const handleOnSave = async () => {
     try {
         await FETCH_REQUEST(createPath, 'POST', auth.token, formData);
-        showSucess('Successfully filled')
+  
    
     } catch (error) {
         console.error(error);
-        showError('Something went wrong,please try again')
+
     }
 };
 
@@ -64,6 +64,7 @@ export default function YourComponent({ dataName ,fields ,createPath , display =
             <Input 
       type={field.includes('temperature') ? 'number' : 'text'}
       name={field}
+      required={true}
       value={field.includes('temperature') ? parseInt(formData[field] as string) : formData[field]}
       onChange={handleInputChange}
       
@@ -96,9 +97,28 @@ export default function YourComponent({ dataName ,fields ,createPath , display =
     </label>
   </div>
 ))}
-
-
         </div>
+        {/* //* This section sint quite dynamic , it concerns only the fact of adding a user */}
+        {radio && (
+  <RadioGroup defaultValue="member" onValueChange={(picked) => {
+    setFormData((prevData: any) => ({
+      ...prevData,
+      role: picked ?? 'member',
+    }));
+  }}>
+    <div className="flex flex-row justify-around">
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="member" id="r1" />
+        <Label htmlFor="r1">Member</Label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <RadioGroupItem value="admin" id="r2" />
+        <Label htmlFor="r2">Admin</Label>
+      </div>
+    </div>
+  </RadioGroup>
+)}
+
 
         <DialogClose>
             <Button onClick={handleOnSave}> Save </Button>

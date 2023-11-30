@@ -1,7 +1,6 @@
 'use client'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { faGears } from '@fortawesome/free-solid-svg-icons';
 import {
   NavigationMenu,
@@ -10,12 +9,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-
-
 import Create from '../../CRUD/Create';
 import useDecodeAuthToken from '@/context/useDecodeAuthToken';
 import { JwtPayloadITC } from '@/TYPES.ts/creationData';
-import Link from 'next/link';
+
 
 
 export default function Settings({ fridge_id }: { fridge_id?: string }) {

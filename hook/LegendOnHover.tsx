@@ -15,8 +15,8 @@ export function TooltipDemo({legend , children}:  ToolTipITC) {
           {children}
         </TooltipTrigger>
 
-        <TooltipContent>
-          <p className="bg-white text-blue-500 text-2xl">{legend}</p>
+        <TooltipContent className="p-0 m-4">
+          <p className="p-4 font-bold  bg-gray-950 shadow-sm shadow-cyan-700 ">{legend}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

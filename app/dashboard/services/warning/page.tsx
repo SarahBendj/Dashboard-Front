@@ -43,7 +43,7 @@ export default function ReceptionTable({
   //*pagination
 
   const page = searchParams['page'] ?? '1'
-  const perPage = page === '1' ? (searchParams['per_page'] ?? '5') : (searchParams['per_page'] ?? '10')
+  const perPage = page === '1' ? (searchParams['per_page'] ?? '5') : ( '10')
 
   const start = (Number(page) - 1) * Number(perPage)
   const end = start + Number(perPage)
@@ -92,7 +92,7 @@ export default function ReceptionTable({
 
         <div className="bg-gray-900 m-4 p-4 w-full shadow-md shadow-cyan-700 ">
           <div className="flex justify-between">
-            <h2 className='text-xl text-white pb-4'>Warnings</h2>
+            <h2 className='text-2xl text-white pb-4'>Warnings</h2>
             <Pagination url={'warning'} nextPage={end < warnings.length}
               prevPage={start > 0} />
           </div>
@@ -115,7 +115,10 @@ export default function ReceptionTable({
             <TableBody className="text-white cursor-pointer">
               {dataToDisplayPerPage.map((warning) => (
                 <TableRow key={warning.id}>
-                  <TableCell>{warning.fridgeId ? warning.fridgeId : warning.receptionId} </TableCell>
+                  <TableCell>
+                    {warning.fridgeId ? `Index-FR${warning.fridgeId}` : `Index-RC${warning.receptionId}`}
+                  </TableCell>
+
                   <TableCell>
                     <FontAwesomeIcon icon={warning.warning_status ? faTimesCircle : faCheckCircle}
                       className={`scale-150 ${warning.warning_status ? 'text-yellow-700' : 'text-cyan-500'}`}

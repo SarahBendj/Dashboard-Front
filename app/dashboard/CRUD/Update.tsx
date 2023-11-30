@@ -19,8 +19,8 @@ import { FormEvent, useState } from "react"
 import useNotification from "@/hook/useNotification"
 
 
-export default function YourComponent({  dataTarget,fields ,updatePath , signOrCheck , preFilledData , METHOD ='PUT'}:
-   { dataTarget: string ,fields: string[] ,updatePath:string , signOrCheck? : boolean ,  preFilledData? :any , METHOD ?:string }) {
+export default function YourComponent({  dataTarget,fields ,updatePath , signOrCheck ,status, preFilledData , METHOD ='PUT'}:
+   { dataTarget: string ,fields: string[] ,updatePath:string , signOrCheck? : boolean ,  preFilledData? :any , METHOD ?:string ; status ? : string }) {
   const [formData, setFormData] = useState<any>({ ...preFilledData })
 
  
@@ -38,7 +38,7 @@ console.log(formData)
   
   const handleOnSave = async () => {
     try {
-       const response = await FETCH_REQUEST(updatePath, METHOD, auth.token, formData);
+       const response = await FETCH_REQUEST(updatePath, status? 'PATCH' :METHOD, auth.token, formData);
        console.log(response)
        if( response) {
         showSucess('Successfully filled')
@@ -56,13 +56,28 @@ console.log(formData)
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-gradient-to-r from-yellow-900 to-sky-850  w-full text-white rounded-none"> Edit </Button>
+        <Button
+          disabled={status === 'Inactive'}
+          className={
+          status === 'Active'
+            ? 'bg-gradient-to-r from-cyan-900 to-sky-850 w-full text-white rounded-none'
+            : 'bg-gradient-to-r from-yellow-900 to-sky-850 w-full text-white rounded-none'
+        }
+>
+  {status ?? 'Edit'}
+</Button>
+
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Editing  <span className="font-bold text-blue-700">{dataTarget}</span></DialogTitle>
+          <DialogTitle>{ status ? "Disabeling the " :"Editing" } <span className="font-bold text-blue-700">{dataTarget}</span></DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
+          { status && (
+            <p> You are about to revoke this member rights. This member will no longer have access to the application.
+
+            </p>
+          )}
       
         {fields.map((field) => (
         <div key={field}>
@@ -91,7 +106,7 @@ console.log(formData)
        
         <DialogFooter>
         <DialogClose asChild>
-        <Button type="submit" onClick={handleOnSave}>Save</Button>
+        <Button type="submit" onClick={handleOnSave}> { status ? 'Drop off rights' :'Save' }</Button>
           </DialogClose>
        
         </DialogFooter>

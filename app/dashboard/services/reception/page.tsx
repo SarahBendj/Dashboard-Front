@@ -14,18 +14,18 @@ import parseAndFormatDate from '@/hook/dateFormat';
 
 export default function ReceptionTable() {
   const [receptions , setReceptions ]= useState<ReceptionITC[]>([])
-  const [ expandedRow , setExpandedRow ] = useState<any | null>(null);
+  const [ expandedRow , setExpandedRow ] = useState<ReceptionITC | null>(null);
   const [ legendIsOpen , setLegendIsOpen ] = useState<boolean>(false);
 
   const user: JwtPayloadITC | null = useDecodeAuthToken();
   const { auth } = useAuth();
+  console.log(user)
 
 
   useEffect(() => {
     const fetchData = async () => {
         try {
             const data :ReceptionITC[]  = await FETCH_REQUEST('receptioncontrols/info', 'GET', auth.token);
-  
             setReceptions(data);
         } catch (error) {
             console.error(error);
@@ -72,18 +72,20 @@ const toggleLegend = () :void => {
       </div>
       <div className="w-50"> <ReceptionStats  status={receptions.map((rep)=> rep.warning_status ??  false)}/></div>
       </div>
-   <div className='bg-gray-900 m-4 p-4 '>
-    <h2 className='text-xl text-white'>RECEPTIONS</h2>
+   <div className='bg-gray-900 shadow-md shadow-cyan-700 m-4 p-4 h-full '>
+    <h2 className='text-2xl text-white pb-4'>RECEPTIONS</h2>
     <div className='text-xl text-white w-full rounded-none'> 
     <Create  
          preFilledData={{
-          app_user_id : user ? parseInt(user.id) : 5,
+          app_user_id : user ? parseInt(user.id) : null,
         }} 
         dataName='receptioncontrols' 
         fields ={["temperature", "description"]} createPath='receptioncontrols' 
         checkboxes={['vehicle_compliance','packaging_condition', 'expiration_date']}
        
         /> </div>
+            <div className="overflow-y-auto h-80">
+
 
     <Table className=""> 
         <TableCaption> LAST RECEPTIONS</TableCaption>
@@ -98,7 +100,7 @@ const toggleLegend = () :void => {
 
         <TableBody className="text-white cursor-pointer">
           {receptions.map((reception) => (
-            <TableRow  className= { !reception.warning_status ? 'bg-gradient-to-r from-cyan-900 to-rose-850' : 'bg-gradient-to-l from-teal-900 to-rose-850 ' } key={reception.id} onClick={() => toggleInformations(reception)}>
+            <TableRow  className= { !reception.warning_status ? 'bg-gradient-to-r from-cyan-900 to-rose-850' : 'bg-gradient-to-l from-yellow-800 to-sky-850' } key={reception.id} onClick={() => toggleInformations(reception)}>
               {expandedRow === reception ? (
                 <>
                 <TableCell>
@@ -138,7 +140,7 @@ const toggleLegend = () :void => {
           ))}
         </TableBody>
         </Table>
-        {/* <Modal> Check</Modal> */}
+        </div>
      
         </div>
         </div>

@@ -49,6 +49,7 @@ export interface ReceptionITC {
   warning_status: boolean;
 }
 
+
 export interface WarningITC {
   createdat: string;
   description: string;
@@ -99,4 +100,26 @@ export interface NotifyAlarmITC {
 export interface ToolTipITC  {
   legend: string;
   children: React.ReactNode
+}
+ 
+export interface MemberITC {
+  id: number;
+  lastname : string;
+  firstname : string;
+  identificant : string;
+  role : string;
+  user_status : boolean
+ 
+}
+export interface NewMemberITC {
+  lastname : string;
+  firstname : string;
+  email: string
+  role ? : string
+  }
+
+export interface MemberStatsITC {
+  controle_date : string
+  identificant: string
+  max_controle: number
 }
