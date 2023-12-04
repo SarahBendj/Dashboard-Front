@@ -5,15 +5,21 @@ import { FETCH_REQUEST } from '@/lib/fetching';
 import React, { useEffect, useState } from 'react';
 import Create from '../../CRUD/Create';
 import Update from '../../CRUD/Update';
-import { MemberITC } from '@/TYPES.ts/creationData';
+import { JwtPayloadITC, MemberITC } from '@/TYPES.ts/creationData';
 import MemberStats from '../../Stats/memberStats';
 import { Button } from '@/components/ui/button';
+import useDecodeAuthToken from '@/context/useDecodeAuthToken';
 
 
 export default function ReceptionTable() {
   const [ members , setMembers ]= useState<MemberITC[]>([])
   const { auth } = useAuth();
   const [ isExpanded ,setIsExpanded ] = useState<boolean>(false);
+  const user = useDecodeAuthToken();
+  console.log(user?.role)
+  
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +42,8 @@ const expandComponent =(): void => {
    
       <div className="flex-col items-center h-full justify-around w-11/12 ">
         <div className="mb-4 w-80 bg-gray-900 mx-4 p-4 w-full  shadow-md shadow-cyan-700">
-          <Button onClick={expandComponent} className='shadow-sm shadow-cyan-700 bg-inherit text-white rounded-none text-xl'> {isExpanded ? 'Hide' : ' Expand'}</Button>
+          
+          <Button   onClick={expandComponent} className='shadow-sm shadow-cyan-700 bg-inherit text-white rounded-none text-xl'> {isExpanded ? 'Hide' : ' Expand'}</Button>
          
           <div className={ isExpanded ? 'hidden' :'py-2 mx-auto text-white italic'}>  Explore the latest activities of our members through an insightful diagram. Expand for more details.</div>
           <div className={ isExpanded ? 'w-4/5' :'hidden'}> 
@@ -46,8 +53,8 @@ const expandComponent =(): void => {
     
       <div className="bg-gray-900 mx-4 p-4 w-full  shadow-md shadow-cyan-700">
         
-        <h2 className='text-xl text-white pb-4'>Suppliers</h2>
-        <div className='text-xl text-white w-full'> <Create  dataName='Member' fields ={["firstname","lastname","email"]} createPath='users' radio={"role"}/> </div>
+        <h2 className='text-xl text-white pb-4'>Members</h2>
+        <div className='text-xl text-white w-full'> <Create dataName='Member' fields ={["firstname","lastname","email"]} createPath='users' radio={"role"}/> </div>
         
    <div className={isExpanded ? "hidden" : "overflow-y-auto h-96"}>/
     <Table > 

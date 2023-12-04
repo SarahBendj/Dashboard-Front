@@ -13,7 +13,7 @@ export const FETCH_REQUEST = async (request_path: string, METHOD: string, token:
       }
     };
 
-    if (METHOD == 'GET') {
+    if (METHOD === 'GET') {
       const response = await fetch(`${API}/${request_path}`, requestOptions);
       console.log(response);
 
@@ -41,6 +41,10 @@ export const FETCH_REQUEST = async (request_path: string, METHOD: string, token:
     }
   } catch (error) {
     console.error('Error:', error);
-    showError('Something went wrong, please try again');
+    if( METHOD !== 'GET') {
+      showError('Something went wrong, please try again');
+
+    }
+  
   }
 };

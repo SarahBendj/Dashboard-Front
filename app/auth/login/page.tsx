@@ -8,13 +8,13 @@ import { useAuth } from '@/context/useAuth';
 import Reveal from '@/hook/reveal';
 import useNotification from '@/hook/useNotification';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import Create from '../../dashboard/CRUD/Create';
 
 
 export default function Login() {
   const [identificant, setIdentificant] = useState('');
   const [password, setPassword] = useState('');
-  const { login , auth } = useAuth();
+  const { login  } = useAuth();
   const { showSucess, showError } = useNotification();
   const router = useRouter();
  
@@ -85,9 +85,19 @@ export default function Login() {
               />
             </div>
             </Reveal>
-            <Link href={'/'}> forget password </Link>
+          
+            <div className="mb-4 ">
+            <Create 
+                dataName='Reset password' 
+                fields ={["email", "identificant"]} 
+                createPath='login/reset'
+                resetPassword={true} >
+             </Create>
+              
+            </div>
+            <div className="border-t my-4 "></div>
 
-            <Button  className=' text-white rounded none block bg-cyan-950 ' > Login </Button>
+            <Button  className=' m-auto text-white rounded none block bg-cyan-900 hover:bg-cyan-950 ' > Login </Button>
             </form>
           </CardContent>
         </CardContent>

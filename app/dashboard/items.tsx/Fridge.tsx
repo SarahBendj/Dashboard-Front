@@ -1,5 +1,5 @@
 'use client' 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useState, useEffect } from 'react';
 import  { useAuth } from '@/context/useAuth';
 import { FETCH_REQUEST } from '@/lib/fetching';
@@ -42,12 +42,12 @@ export default function Fridge() {
 }, [auth.token]);
 
    return (
-    <div className='bg-gray-900 m-4 p-4 shadow-md shadow-cyan-700 max-w-content' >
+    <div className='bg-gray-900 m-4 px-4 shadow-md shadow-cyan-700 max-w-content' >
       <TooltipDemo 
       legend='This section empowers you to regulate your machine temperatures in comparison to standards. It provides detailed insights into the statistics of each individual machine for thorough monitoring.'>
       <h2 className="text-xl text-white py-2 border-b mb-4 ">FRIDGES</h2>
       </TooltipDemo>
-      <div className="flex items-start overflow-x-auto h-64  ">
+      <div className="flex items-start overflow-x-auto h-64 ">
         {fridges.map((fridge) => (
           <div className='mx-3' key={fridge.id}   >
              <div className='w-full shadow-md shadow-cyan-700 '>
@@ -87,7 +87,7 @@ export default function Fridge() {
               
        
       </div>
-      <div className="mr-4 p-2 ">
+      <div className="my-5  py-2 ">
     <Link href={'dashboard/services/fridge'}  className='text-cyan-700 hover:text-white mr-4'> View <FontAwesomeIcon icon={faArrowRight} /></Link>
     </div>
     </div>

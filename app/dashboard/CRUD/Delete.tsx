@@ -13,11 +13,13 @@ import {
 import { useAuth } from "@/context/useAuth"
 import { FETCH_REQUEST } from "@/lib/fetching"
 import useNotification from "@/hook/useNotification"
+import useDecodeAuthToken from "@/context/useDecodeAuthToken"
 
 
 export default function YourComponent({ dataTarget  ,deletePath }: {  dataTarget : string ,deletePath:string }) {
   const { showError, showSucess } = useNotification();
   const { auth } = useAuth();
+  const user = useDecodeAuthToken();
 
   const handleOnDelete = async () => {
     try {
@@ -32,7 +34,7 @@ export default function YourComponent({ dataTarget  ,deletePath }: {  dataTarget
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button  className="bg-gradient-to-r from-orange-900 to-sky-850  w-full text-white rounded-none "> Delete </Button>
+        <Button disabled={ user?.role === 'member'} className="bg-gradient-to-r from-orange-900 to-sky-850  w-full text-white rounded-none "> Delete </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

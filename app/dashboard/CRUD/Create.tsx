@@ -15,13 +15,30 @@ import { FETCH_REQUEST } from "@/lib/fetching"
 import { FormEvent, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import useDecodeAuthToken from "@/context/useDecodeAuthToken"
 
 
 
-export default function YourComponent({ dataName ,fields ,createPath , display = true , preFilledData , checkboxes ,radio  }:
-   { dataName : string ,fields: (string| number)[] ,createPath:string , display? :boolean ,preFilledData? :any ,checkboxes ? : string[] , radio?: string | string [] }) {
+export default function YourComponent({ dataName ,
+fields ,
+createPath ,
+ display = true ,
+ preFilledData ,
+ checkboxes ,
+ children,
+radio, resetPassword }:
+   { dataName : string ,
+  fields: (string| number)[] ,
+  createPath:string ,
+   display? :boolean ,
+  preFilledData? :any ,
+  checkboxes ? : string[] ,
+   radio?: string | string [] ,
+   children? :React.ReactNode,
+   resetPassword ? : boolean }) {
   const [formData, setFormData] = useState({...preFilledData});
   const { auth } = useAuth();
+  const user = useDecodeAuthToken();
   
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -46,7 +63,14 @@ export default function YourComponent({ dataName ,fields ,createPath , display =
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button  className="bg-gradient-to-r from from-gray-800 to-sky-700  w-full text-white rounded-none "> {display ?  ` + New ${dataName}` : '+' }</Button>
+        { resetPassword ? (
+          <Button className="bg-inherit text-gray-950 hover:bg-cyan-900 hover:text-white"> forget password ?</Button>
+        ) : (
+            <Button    disabled={user?.role === 'member' && createPath === 'users'}   
+            className="bg-gradient-to-r from from-gray-800 to-sky-700  w-full text-white rounded-none "> {display ?  ` + New ${dataName}` : '+' }</Button>
+
+        )}
+      
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -121,7 +145,8 @@ export default function YourComponent({ dataName ,fields ,createPath , display =
 
 
         <DialogClose>
-            <Button onClick={handleOnSave}> Save </Button>
+
+            <Button onClick={handleOnSave}> {resetPassword ? 'Reset password ' : 'Save'}  </Button>
         </DialogClose>
     
       </DialogContent>
